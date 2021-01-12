@@ -1,0 +1,31 @@
+// INSERTING THE COLLECTION
+db.contactList.insertMany
+   ([
+    {_id: 1, Last_name: "Ben Lahmer", First_name: "Fares", Email: "fares@gmail.com", age:26},
+    { _id: 2, Last_name: "Kefi", First_name: "Seif", Email: "kefi@gmail.com", age: 15 },
+    {_id: 3, Last_name: "Fatnassi", First_name: "Sarra", Email: "sarra.f@gmail.com", age: 40 },
+    {_id: 4, Last_name: "Ben Yahia", First_name: "Rym", age:4},
+    {_id: 5, Last_name: "Cherif", First_name: "Sami", age:3}
+    ])
+
+
+// DISPLAYING ALL DUCOMENTS
+db.contactList.find().pretty()
+
+
+// DISPLAYING DUCOMENTS WHERE AGE IS GREATER THAN 18
+db.contactList.find({age: {$gt: 18}}).pretty()
+
+
+// DISPALYING DUCOMENTS WHERE AGE IS GREATRE THAN 18 AND NAME CONTAINING AH
+db.contactList.find({$and: [{age: {$gt: 18}}, {$or: [{First_name: {$regex : ".*ah.*"}}, {Last_name: {$regex : ".*ah.*"}}]}]}).pretty()
+
+
+// MODIFY THE CONTACT FIRST NAEM OF "KEFI SEIF" BY "KEFI ANIS"
+db.contactList.findOneAndReplace(
+   { First_name : "Sief" },
+   {_id: 2, Last_name: "Kefi", First_name: "Anis", Email: "kefi@gmail.com", age: 15 }
+)
+
+// DELETE THE CONTACT HAVING AGE LESS THAN FIVE
+db.contactList.remove( { age: { $lt: 5 } } )
